@@ -7,7 +7,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { InstagramStrip } from "@/components/InstagramStrip";
 import { LatestNews, BookCta } from "@/components/NewsAndCta";
 import { Footer } from "@/components/Footer";
-import { studio, artists } from "@/data/site";
+import { artists } from "@/data/site";
 
 const jsonLd = {
   "@context": "https://schema.org",
