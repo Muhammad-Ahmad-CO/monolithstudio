@@ -1,24 +1,77 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Header } from "@/components/Header";
+import { StatueHero } from "@/components/StatueHero";
+import { ArtistsSection } from "@/components/ArtistsSection";
+import { Journal } from "@/components/Journal";
+import { Testimonials } from "@/components/Testimonials";
+import { InstagramStrip } from "@/components/InstagramStrip";
+import { LatestNews, BookCta } from "@/components/NewsAndCta";
+import { Footer } from "@/components/Footer";
+import { artists } from "@/data/site";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "TattooParlor",
+  name: "Monolith Studio",
+  description:
+    "Contemporary tattoo studio in Brooklyn, NYC founded by Okan Uckun and Oscar Akermo.",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "77 Washington Avenue",
+    addressLocality: "Brooklyn",
+    addressRegion: "NY",
+    postalCode: "11205",
+    addressCountry: "US",
+  },
+  openingHours: "Mo-Su 12:00-20:00",
+  aggregateRating: { "@type": "AggregateRating", ratingValue: "5.0", reviewCount: "108" },
+  founder: [
+    { "@type": "Person", name: "Okan Uckun" },
+    { "@type": "Person", name: "Oscar Akermo" },
+  ],
+  employee: artists.map((a) => ({ "@type": "Person", name: a.name })),
+};
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Monolith Studio — Contemporary Tattoo Studio in Brooklyn, NYC" },
+      {
+        name: "description",
+        content:
+          "Monolith Studio is a contemporary tattoo studio in Brooklyn, New York — 25 fine line, micro realism, ornamental and blackwork artists. Book your experience.",
+      },
+      {
+        property: "og:title",
+        content: "Monolith Studio — Contemporary Tattoo Studio in Brooklyn, NYC",
+      },
+      {
+        property: "og:description",
+        content:
+          "A hand-picked collective of tattoo artists in Brooklyn. Fine line, micro realism, ornamental, blackwork and single line work.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Header theme="light" />
+      <main>
+        <StatueHero />
+        <ArtistsSection />
+        <Journal />
+        <Testimonials />
+        <InstagramStrip />
+        <LatestNews />
+        <BookCta />
+      </main>
+      <Footer />
+    </>
   );
 }
