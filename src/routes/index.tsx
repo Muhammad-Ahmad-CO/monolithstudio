@@ -63,7 +63,6 @@ function Index() {
     <>
       <Header theme="light" />
       <main>
-        <h1 className="sr-only">{studio.tagline}</h1>
         <StatueHero />
         <ArtistsSection />
         <Journal />
