@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArtistsRouteImport } from './routes/artists'
 import { Route as BlogRouteImport } from './routes/blog'
+import { Route as BookExperienceRouteImport } from './routes/book-experience'
 import { Route as StudioRouteImport } from './routes/studio'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const BlogRoute = BlogRouteImport.update({
   path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookExperienceRoute = BookExperienceRouteImport.update({
+  id: '/book-experience',
+  path: '/book-experience',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudioRoute = StudioRouteImport.update({
   id: '/studio',
   path: '/studio',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/artists': typeof ArtistsRoute
   '/blog': typeof BlogRoute
+  '/book-experience': typeof BookExperienceRoute
   '/studio': typeof StudioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/artists': typeof ArtistsRoute
   '/blog': typeof BlogRoute
+  '/book-experience': typeof BookExperienceRoute
   '/studio': typeof StudioRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/artists': typeof ArtistsRoute
   '/blog': typeof BlogRoute
+  '/book-experience': typeof BookExperienceRoute
   '/studio': typeof StudioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/artists' | '/blog' | '/studio'
+  fullPaths: '/' | '/artists' | '/blog' | '/book-experience' | '/studio'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/artists' | '/blog' | '/studio'
-  id: '__root__' | '/' | '/artists' | '/blog' | '/studio'
+  to: '/' | '/artists' | '/blog' | '/book-experience' | '/studio'
+  id: '__root__' | '/' | '/artists' | '/blog' | '/book-experience' | '/studio'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ArtistsRoute: typeof ArtistsRoute
   BlogRoute: typeof BlogRoute
+  BookExperienceRoute: typeof BookExperienceRoute
   StudioRoute: typeof StudioRoute
 }
 
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/book-experience': {
+      id: '/book-experience'
+      path: '/book-experience'
+      fullPath: '/book-experience'
+      preLoaderRoute: typeof BookExperienceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/studio': {
       id: '/studio'
       path: '/studio'
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ArtistsRoute: ArtistsRoute,
   BlogRoute: BlogRoute,
+  BookExperienceRoute: BookExperienceRoute,
   StudioRoute: StudioRoute,
 }
 export const routeTree = rootRouteImport
