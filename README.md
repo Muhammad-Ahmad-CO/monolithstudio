@@ -1,52 +1,34 @@
 # Monolith Studio
 
-A premium creative studio website designed to showcase design craftsmanship, strategic thinking, and modern digital execution. The project presents Monolith Studio as a refined creative agency that blends branding, design systems, and digital product thinking into a cohesive and memorable online experience.
+[![TypeScript](https://img.shields.io/badge/TypeScript-97.4%25-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Studio-181717?logo=googlechrome&logoColor=white)](https://monolithstudio.lovable.app) [![Responsive](https://img.shields.io/badge/Design-Responsive-8B5CF6)](https://github.com/Muhammad-Ahmad-CO/monolithstudio)
+
+## Live Website Preview
+
+[![Open Monolith Studio](https://image.thum.io/get/width/1200/crop/850/https://monolithstudio.lovable.app)](https://monolithstudio.lovable.app)
+
+**[Visit the live studio website →](https://monolithstudio.lovable.app)**
 
 ## Overview
 
-Monolith Studio is a polished digital brand experience created to communicate creative strength, precision, and modern business value. It is crafted to leave a strong first impression while making services, capabilities, and creative direction easy to understand.
+Monolith Studio is a premium creative studio website designed to showcase design craftsmanship, strategic thinking, and modern digital execution. It presents the studio as a refined creative agency blending visual identity, digital craftsmanship, and product-led design.
 
 ## Brand Positioning
 
-The site presents Monolith Studio as a contemporary creative company focused on visual identity, digital craftsmanship, and product-led design. The experience is built to appeal to clients who want their brand to feel elevated, strategic, and differentiated in a crowded market.
+The experience is built for clients seeking an elevated, strategic, and differentiated brand presence. It communicates creative confidence through a clear structure, premium typography, and polished interactions.
 
 ## Core Features
 
 - Premium studio-style hero experience
-- Responsive layout for multiple screen sizes
-- Strong portfolio and feature presentation
-- Creative agency visual language with polished interactions
-- Clear service storytelling and value proposition
+- Responsive layout for all screen sizes
+- Portfolio and featured work presentation
+- Service storytelling and value proposition
+- Refined creative-agency visual language
 - Contact-focused conversion strategy
-- Flexible structure for future creative case studies and service expansion
-
-## Business Goals
-
-- Position the studio as premium and modern
-- Showcase capabilities through polished presentation
-- Create a memorable first impression for clients and collaborators
-- Communicate expertise across design, strategy, and digital experiences
-- Build a scalable foundation for future lead generation and work showcases
-
-## Site Structure
-
-The website is designed to include:
-1. Hero section with brand statement and CTA
-2. Studio intro and positioning
-3. Services or capabilities overview
-4. Featured portfolio or work showcase
-5. Insight or process highlights
-6. Contact or inquiry section
-7. Footer with essential business details
+- Scalable case-study foundation
 
 ## Design Direction
 
-The visual identity is built around premium simplicity and clarity:
-- clean spacing and polished typography
-- modern contrast and premium dark or neutral palette
-- elegant structure with strong content hierarchy
-- subtle motion and refined UI details
-- a balance of minimal aesthetic and creative energy
+Premium simplicity, modern contrast, polished typography, strong hierarchy, subtle motion, and a balance of minimal structure with creative energy define the experience.
 
 ## Tech Stack
 
@@ -54,33 +36,19 @@ The visual identity is built around premium simplicity and clarity:
 - TypeScript
 - Vite
 - Tailwind CSS
-- Framer Motion or similar motion library
+- Framer Motion
 - Modern frontend UI architecture
-
-## Highlights
-
-- Premium agency presentation
-- Strong visual identity and refined storytelling
-- Clear conversion-focused structure
-- Flexible creative portfolio foundation
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js
-- npm
-
-### Installation
-
 ```bash
-git clone <repository-url>
+git clone https://github.com/Muhammad-Ahmad-CO/monolithstudio.git
 cd monolithstudio
 npm install
 npm run dev
 ```
 
-### Production Build
+## Production Build
 
 ```bash
 npm run build
@@ -88,14 +56,7 @@ npm run build
 
 ## Deployment
 
-This project is suitable for deployment on:
-- Vercel
-- Netlify
-- standard custom hosting environments
-
-## Notes
-
-Monolith Studio is designed as a premium digital brand experience that communicates quality, craftsmanship, and creative confidence. The project is positioned to support brand storytelling while remaining scalable for future work showcases and client acquisition.
+Suitable for Vercel, Netlify, and standard custom hosting environments.
 
 ---
 
