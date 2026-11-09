@@ -5,45 +5,45 @@ import { Reveal } from "@/components/Reveal";
 export function Journal() {
   return (
     <section className="bg-background px-4 pb-24 md:px-8 md:pb-32">
-      <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="grid gap-12 lg:grid-cols-2">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <Reveal>
-            <p className="label text-muted-foreground">the blog</p>
-            <h2 className="mt-6 text-4xl leading-[1.05] tracking-tight md:text-6xl">
-              Unlock expert insights on tattoo craft, aftercare and studio culture.
+            <h2 className="max-w-[30rem] text-4xl leading-[1.04] tracking-tight md:text-[3.4rem]">
+              Unlock Expert Insights. Dive into our tattoo knowledge hub
             </h2>
-            <Link to="/blog" className="mt-8 inline-block label link-underline">
-              read the blog ↗
+            <Link
+              to="/blog"
+              className="mt-9 inline-flex items-center gap-3 border border-white/30 px-6 py-3.5 text-sm transition-colors hover:bg-white hover:text-black"
+            >
+              Explore Articles
+              <span aria-hidden="true">↗</span>
             </Link>
           </Reveal>
         </div>
 
-        <ul className="space-y-10">
+        <ul className="space-y-14">
           {articles.map((a, i) => (
             <Reveal as="li" key={a.title} delay={i * 90}>
-              <Link to="/blog" className="group grid gap-4 sm:grid-cols-[180px_1fr]">
-                <div className="aspect-[4/3] overflow-hidden bg-secondary sm:aspect-square">
+              <Link to="/blog" className="group block">
+                <div className="aspect-[4/3] overflow-hidden bg-secondary">
                   {a.image ? (
                     <img
                       src={a.image}
                       alt={a.title}
                       loading="lazy"
-                      className="h-full w-full object-cover grayscale transition-all duration-[900ms] group-hover:scale-105 group-hover:grayscale-0"
+                      className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-105"
                     />
                   ) : null}
                 </div>
-                <div className="rule flex flex-col justify-between pt-3">
-                  <div>
-                    <div className="flex gap-4 label text-muted-foreground">
-                      <span>{a.category}</span>
-                      <span>{a.read}</span>
-                    </div>
-                    <h3 className="mt-3 text-xl leading-tight tracking-tight md:text-2xl">
-                      {a.title}
-                    </h3>
-                  </div>
-                  <span className="mt-4 label text-muted-foreground">{a.date}</span>
+                <div className="label mt-4 flex items-center justify-between text-foreground/55 uppercase">
+                  <span>
+                    {a.category} • {a.date}
+                  </span>
+                  <span>{a.read}</span>
                 </div>
+                <h3 className="mt-2.5 max-w-[30rem] text-[1.55rem] leading-tight font-medium tracking-tight">
+                  {a.title}
+                </h3>
               </Link>
             </Reveal>
           ))}

@@ -1,35 +1,33 @@
 import { useEffect, useRef } from "react";
 import { statueFrames } from "@/lib/media";
 
-const panels = [
-  {
-    kind: "title" as const,
-    eyebrow: "contemporary tattoo studio — brooklyn, nyc",
-    title: "monolith",
-    note: "keep scrolling",
-  },
-  {
-    kind: "text" as const,
-    label: "about",
-    body: "Monolith Studio is a contemporary tattoo studio in Brooklyn, New York, founded by Okan Uckun and Oscar Akermo. We work with a hand-picked collective of artists whose practices sit somewhere between drawing, sculpture and skin.",
-  },
-  {
-    kind: "sidenote" as const,
-    label: "sidenote",
-    body: "Every piece begins as a conversation. No flash walls, no rushed consults — only considered work made once, for one person.",
-  },
-  {
-    kind: "text" as const,
-    label: "our vision",
-    body: "We treat the body as architecture: proportion, weight, negative space. Precision is the baseline. Permanence is the point.",
-  },
-];
+const ABOUT =
+  "Monolith Studio, founded by internationally renowned pioneers of Fine Line Tattoo, Micro Realism Tattoo, and Minimalist Tattoo, Okan Uçkun and Oscar Akermo, hosts the world's and Brooklyn's best tattoo artists in Brooklyn, NYC.";
+const NOTE_ONE =
+  "Each of our works is unique, crafted especially for you to meet your artistic vision and technical expectations.";
+const VISION =
+  "At our Brooklyn tattoo studio, we believe in the power of creativity and self-expression. Our vision is to transform your ideas and unique stories into stunning, one-of-a-kind tattoos in collaboration with the best tattoo artists from NYC and around the world.";
+const NOTE_TWO =
+  "We see each tattoo as a piece of art, a narrative that unfolds on your skin. Your body is a canvas, and we strive to create masterpieces that reflect your individuality and passions.";
+
+function Sidenote({ body }: { body: string }) {
+  return (
+    <div className="w-[min(23rem,86vw)] bg-ink text-foreground shadow-2xl">
+      <div className="flex items-center justify-between border-b border-white/15 px-5 pt-4 pb-3">
+        <span className="text-sm">Sidenote</span>
+        <span className="h-2 w-2 rounded-full bg-white" />
+      </div>
+      <p className="px-5 py-4 text-[15px] leading-snug">{body}</p>
+    </div>
+  );
+}
 
 export function StatueHero() {
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const panelRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const endRef = useRef<HTMLDivElement | null>(null);
+  const meetRef = useRef<HTMLDivElement | null>(null);
+  const hintRef = useRef<HTMLDivElement | null>(null);
   const progressRef = useRef(0);
 
   useEffect(() => {
@@ -60,10 +58,27 @@ export function StatueHero() {
       const cw = canvas.width;
       const ch = canvas.height;
       ctx.clearRect(0, 0, cw, ch);
-      const scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+      // Zoom past cover so the bust fills the frame like the reference:
+      // a head-and-shoulders crop anchored slightly above centre.
+      const scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight) * 1.42;
       const w = img.naturalWidth * scale;
       const h = img.naturalHeight * scale;
-      ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+      const x = (cw - w) / 2;
+      const y = (ch - h) * 0.42;
+      ctx.drawImage(img, x, y, w, h);
+    };
+
+    const fade = (el: HTMLDivElement, prog: number, start: number, end: number, rise = 46) => {
+      const local = (prog - start) / (end - start);
+      let opacity = 0;
+      if (local > 0 && local < 1) {
+        opacity = local < 0.16 ? local / 0.16 : local > 0.84 ? (1 - local) / 0.16 : 1;
+      }
+      const clamped = Math.min(1, Math.max(0, local));
+      const ease = 1 - Math.pow(1 - clamped, 3);
+      el.style.opacity = String(opacity);
+      el.style.transform = `translate3d(0, ${(1 - ease) * rise}px, 0)`;
+      el.style.visibility = opacity < 0.01 ? "hidden" : "visible";
     };
 
     const loop = () => {
@@ -87,29 +102,28 @@ export function StatueHero() {
         }
       }
 
-      const count = panels.length;
-      panelRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const start = i / count;
-        const span = 1 / count;
-        const local = (prog - start) / span;
-        const opacity =
-          local < -0.35 || local > 1.25
-            ? 0
-            : local < 0.12
-              ? Math.max(0, (local + 0.32) / 0.44)
-              : local > 0.78
-                ? Math.max(0, (1.25 - local) / 0.47)
-                : 1;
-        el.style.opacity = String(opacity);
-        el.style.transform = `translate3d(0, ${(0.5 - Math.min(1, Math.max(0, local))) * 90}px, 0)`;
-        el.style.visibility = opacity < 0.01 ? "hidden" : "visible";
-      });
+      const [title, about, note1, vision, note2] = panelRefs.current;
+      if (title) {
+        const o = Math.max(0, 1 - prog / 0.1);
+        title.style.opacity = String(o);
+        title.style.transform = `translate3d(0, ${-prog * 500}px, 0)`;
+        title.style.visibility = o < 0.01 ? "hidden" : "visible";
+      }
+      if (about) fade(about, prog, 0.1, 0.34);
+      if (note1) fade(note1, prog, 0.3, 0.52, 30);
+      if (vision) fade(vision, prog, 0.47, 0.69);
+      if (note2) fade(note2, prog, 0.63, 0.84, 30);
 
-      if (endRef.current) {
-        const t = Math.max(0, (prog - 0.82) / 0.18);
-        endRef.current.style.opacity = String(Math.min(1, t * 1.4));
-        endRef.current.style.transform = `translate3d(0,0,0) scale(${0.94 + t * 0.06})`;
+      if (meetRef.current) {
+        const start = 0.79;
+        const local = Math.min(1, Math.max(0, (prog - start) / (1 - start)));
+        const o = local <= 0 ? 0 : Math.min(1, local / 0.25);
+        meetRef.current.style.opacity = String(o);
+        meetRef.current.style.transform = `translate3d(${(0.24 - local * 0.225) * window.innerWidth}px, 0, 0)`;
+        meetRef.current.style.visibility = o < 0.01 ? "hidden" : "visible";
+      }
+      if (hintRef.current) {
+        hintRef.current.style.opacity = String(prog > 0.04 && prog < 0.8 ? 1 : 0);
       }
 
       raf = requestAnimationFrame(loop);
@@ -124,61 +138,77 @@ export function StatueHero() {
     };
   }, []);
 
+  const setPanel = (i: number) => (el: HTMLDivElement | null) => {
+    panelRefs.current[i] = el;
+  };
+
   return (
     <div ref={wrapRef} className="relative bg-paper text-paper-foreground" style={{ height: "620vh" }}>
       <div className="sticky top-0 h-screen overflow-hidden grain">
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-hidden="true" />
 
         <div className="pointer-events-none absolute inset-0">
-          {panels.map((p, i) => (
-            <div
-              key={i}
-              ref={(el) => {
-                panelRefs.current[i] = el;
-              }}
-              className="absolute inset-0 flex flex-col justify-between px-4 py-24 md:px-8"
-              style={{ opacity: 0 }}
-            >
-              {p.kind === "title" ? (
-                <>
-                  <p className="label max-w-[16rem] text-stone">{p.eyebrow}</p>
-                  <div>
-                    <h1 className="display-xl text-[19vw] leading-[0.8]">{p.title}</h1>
-                    <div className="mt-4 flex items-center justify-between">
-                      <span className="label text-stone">{p.note} ↓</span>
-                      <span className="label text-stone">est. brooklyn</span>
-                    </div>
-                  </div>
-                </>
-              ) : p.kind === "sidenote" ? (
-                <div className="m-auto w-full max-w-md">
-                  <div className="bg-ink p-6 text-foreground shadow-2xl md:p-8">
-                    <p className="label text-muted-foreground">{p.label}</p>
-                    <p className="mt-5 text-lg leading-snug tracking-tight md:text-xl">{p.body}</p>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <p className="label text-stone">{p.label}</p>
-                  <p className="ml-auto max-w-2xl text-balance text-2xl leading-[1.15] tracking-tight md:text-4xl">
-                    {p.body}
-                  </p>
-                  <span className="label text-stone">/ {String(i).padStart(2, "0")}</span>
-                </>
-              )}
-            </div>
-          ))}
+          {/* wordmark */}
+          <div ref={setPanel(0)} className="absolute inset-x-0 top-[6vh]" style={{ opacity: 1 }}>
+            <h1 className="text-center font-condensed text-[18vw] leading-[0.95] tracking-[0.005em] uppercase">
+              Monolith
+            </h1>
+          </div>
 
+          {/* keep scrolling hint */}
           <div
-            ref={endRef}
-            className="absolute inset-0 flex items-center justify-center px-4"
+            ref={hintRef}
+            className="label absolute top-1/2 right-5 text-stone transition-opacity duration-500 md:right-7"
             style={{ opacity: 0 }}
           >
-            <h2 className="display-xl text-center text-[14vw] leading-[0.82]">
-              meet
-              <br />
-              the artists
-            </h2>
+            Keep scrolling
+          </div>
+
+          {/* about */}
+          <div ref={setPanel(1)} className="absolute inset-0" style={{ opacity: 0 }}>
+            <p className="label absolute top-[15%] left-4 text-stone md:left-8">About</p>
+            <p className="absolute top-[23%] left-4 max-w-[21rem] text-[1.35rem] leading-[1.3] font-medium tracking-tight md:left-8 md:max-w-[33rem] md:text-[1.7rem]">
+              {ABOUT}
+            </p>
+          </div>
+
+          {/* sidenote one */}
+          <div
+            ref={setPanel(2)}
+            className="absolute right-4 bottom-[12%] md:right-8"
+            style={{ opacity: 0 }}
+          >
+            <Sidenote body={NOTE_ONE} />
+          </div>
+
+          {/* our vision */}
+          <div ref={setPanel(3)} className="absolute inset-0" style={{ opacity: 0 }}>
+            <div className="absolute top-[27%] right-4 max-w-[20rem] md:right-8 md:max-w-[31rem]">
+              <p className="label text-stone">Our vision</p>
+              <p className="mt-4 text-[1.2rem] leading-[1.32] font-medium tracking-tight md:text-[1.45rem]">
+                {VISION}
+              </p>
+            </div>
+          </div>
+
+          {/* sidenote two */}
+          <div
+            ref={setPanel(4)}
+            className="absolute bottom-[12%] left-4 md:left-8"
+            style={{ opacity: 0 }}
+          >
+            <Sidenote body={NOTE_TWO} />
+          </div>
+
+          {/* meet the artists */}
+          <div
+            ref={meetRef}
+            className="absolute top-[13%] left-0 font-condensed leading-[0.94] uppercase"
+            style={{ opacity: 0 }}
+          >
+            <div className="text-[13.5vw]">Meet</div>
+            <div className="text-[13.5vw]">The</div>
+            <div className="text-[13.5vw]">Artists</div>
           </div>
         </div>
       </div>

@@ -91,6 +91,7 @@ export const news = [
   {
     title:
       "'It's just nice to go see a friend': Why Marco Scandella is willing to cross the Atlantic for a specific tattoo artist",
+    publication: "The New York Times",
     date: "November 12, 2019",
     short: "Nov 12, 2019",
     image: photos["it-s-just-nice-to-go-see-a-friend-why-ma"],
@@ -98,6 +99,7 @@ export const news = [
   {
     title:
       "Suarez lanza su nueva colección Orion con Okan Uckun inspirada en el mundo del tatuaje",
+    publication: "ELLE",
     date: "July 19, 2018",
     short: "Jul 19, 2018",
   },

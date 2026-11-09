@@ -2,6 +2,23 @@ import { Link } from "@tanstack/react-router";
 import { artists, type Artist } from "@/data/site";
 import { Reveal } from "@/components/Reveal";
 
+function InstagramIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      className="h-[15px] w-[15px]"
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export function ArtistCard({ artist, index }: { artist: Artist; index: number }) {
   return (
     <Reveal as="li" delay={(index % 4) * 70} className="group">
@@ -12,7 +29,7 @@ export function ArtistCard({ artist, index }: { artist: Artist; index: number })
               src={artist.image}
               alt={`${artist.name}, tattoo artist at Monolith Studio`}
               loading="lazy"
-              className="h-full w-full scale-[1.02] object-cover grayscale transition-[filter,transform] duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105 group-hover:grayscale-0"
+              className="h-full w-full object-cover grayscale transition-transform duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-105"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center">
@@ -21,23 +38,19 @@ export function ArtistCard({ artist, index }: { artist: Artist; index: number })
               </span>
             </div>
           )}
-          <span className="absolute left-3 top-3 bg-background/85 px-2 py-1 label backdrop-blur">
+          <span className="absolute top-3 left-3 bg-white px-2 py-1 text-[11px] font-medium text-black">
             {artist.role}
           </span>
-          <span className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-background/85 text-[11px] backdrop-blur">
-            ig
-          </span>
-          <span className="absolute inset-x-3 bottom-3 translate-y-3 label opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-            {artist.short}'s bio ↗
+          <span className="absolute bottom-3 left-3 flex h-8 w-8 items-center justify-center rounded-full bg-white text-black">
+            <InstagramIcon />
           </span>
         </div>
-        <div className="mt-3 flex items-baseline justify-between gap-3">
-          <h3 className="text-lg tracking-tight">{artist.name}</h3>
-          <span className="label text-muted-foreground">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-        </div>
-        <p className="mt-1 text-sm text-muted-foreground">{artist.styles.join(" / ")}</p>
+        <h3 className="mt-3.5 text-[17px] font-medium tracking-tight">{artist.name}</h3>
+        <p className="mt-1 text-sm text-foreground/50">{artist.styles.join(", ")}</p>
+        <span className="mt-3.5 flex w-full max-w-[230px] items-center justify-between border border-white/25 px-4 py-2.5 text-sm transition-colors group-hover:bg-white group-hover:text-black">
+          {artist.short}&rsquo;s bio
+          <span aria-hidden="true">↗</span>
+        </span>
       </Link>
     </Reveal>
   );
@@ -45,21 +58,15 @@ export function ArtistCard({ artist, index }: { artist: Artist; index: number })
 
 export function ArtistsSection() {
   return (
-    <section id="artists" className="bg-background px-4 py-24 md:px-8 md:py-32">
-      <div className="rule flex flex-wrap items-end justify-between gap-6 pt-6">
-        <h2 className="display-xl text-[13vw] md:text-[7vw]">artists</h2>
-        <div className="max-w-sm space-y-4 pb-3">
-          <p className="text-sm text-muted-foreground">
-            {artists.length} residents and resident guests. Each one books independently — pick the
-            hand that fits the idea.
-          </p>
-          <Link to="/artists" className="label link-underline">
-            view all artists ↗
-          </Link>
-        </div>
+    <section id="artists" className="bg-background px-4 py-20 md:px-8 md:py-24">
+      <div className="flex flex-wrap items-end justify-between gap-6">
+        <h2 className="text-5xl font-medium tracking-tight md:text-6xl">Artists</h2>
+        <Link to="/artists" className="label link-underline pb-2">
+          View all ↗
+        </Link>
       </div>
 
-      <ul className="mt-14 grid grid-cols-2 gap-x-4 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
+      <ul className="mt-12 grid grid-cols-2 gap-x-4 gap-y-12 lg:grid-cols-4">
         {artists.map((a, i) => (
           <ArtistCard key={a.name} artist={a} index={i} />
         ))}

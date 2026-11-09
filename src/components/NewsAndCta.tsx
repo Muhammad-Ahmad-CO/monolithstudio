@@ -2,32 +2,41 @@ import { Link } from "@tanstack/react-router";
 import { news } from "@/data/site";
 import { Reveal } from "@/components/Reveal";
 
+function Publication({ name }: { name: string }) {
+  if (name === "The New York Times") {
+    return <span className="font-blackletter text-[1.75rem] leading-none whitespace-nowrap">{name}</span>;
+  }
+  return (
+    <span className="font-serif text-[1.35rem] font-bold tracking-[0.42em] whitespace-nowrap uppercase">
+      {name}
+    </span>
+  );
+}
+
 export function LatestNews() {
   return (
-    <section className="bg-background px-4 pb-24 md:px-8 md:pb-32">
-      <div className="rule flex flex-wrap items-end justify-between gap-4 pt-6">
-        <h2 className="text-3xl tracking-tight md:text-5xl">latest news</h2>
-        <span className="label text-muted-foreground">press & features</span>
-      </div>
-      <ul className="mt-10 divide-y divide-border">
+    <section className="bg-paper px-4 py-24 text-paper-foreground md:px-8 md:py-28">
+      <Reveal>
+        <h2 className="text-5xl font-medium tracking-tight md:text-6xl">Latest news</h2>
+      </Reveal>
+
+      <ul className="mt-12 border-t border-paper-foreground/15">
         {news.map((n, i) => (
-          <Reveal as="li" key={n.title} delay={i * 80}>
-            <a href="#" className="group grid gap-4 py-8 md:grid-cols-[1fr_auto] md:items-center">
-              <div className="flex items-start gap-6">
-                {n.image ? (
-                  <img
-                    src={n.image}
-                    alt=""
-                    loading="lazy"
-                    className="hidden h-24 w-32 shrink-0 object-cover grayscale transition-all duration-700 group-hover:grayscale-0 md:block"
-                  />
-                ) : null}
-                <p className="max-w-3xl text-lg leading-snug tracking-tight md:text-2xl">
-                  {n.title}
-                </p>
-              </div>
-              <span className="label text-muted-foreground transition-transform duration-500 group-hover:-translate-y-1">
-                {n.date} ↗
+          <Reveal as="li" key={n.title} delay={i * 80} className="border-b border-paper-foreground/15">
+            <a
+              href="#"
+              className="group grid items-center gap-4 py-7 md:grid-cols-[1fr_auto_8.5rem_2rem] md:gap-8"
+            >
+              <p className="max-w-[38rem] text-lg leading-snug font-medium tracking-tight md:text-[1.3rem]">
+                {n.title}
+              </p>
+              <Publication name={n.publication} />
+              <span className="label text-stone md:text-right">{n.short}</span>
+              <span
+                aria-hidden="true"
+                className="hidden text-2xl transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 md:block"
+              >
+                ↗
               </span>
             </a>
           </Reveal>
@@ -39,21 +48,15 @@ export function LatestNews() {
 
 export function BookCta() {
   return (
-    <section className="bg-paper text-paper-foreground">
-      <Link to="/book-experience" className="group block px-4 py-20 md:px-8 md:py-28">
-        <div className="flex items-center justify-between gap-4">
-          <h2 className="display-xl text-[13vw] leading-[0.82]">
-            book
-            <br />
-            experience
-          </h2>
-          <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-paper-foreground/25 text-xl transition-all duration-500 group-hover:bg-paper-foreground group-hover:text-paper md:h-28 md:w-28 md:text-3xl">
+    <section className="border-t border-paper-foreground/10 bg-paper text-paper-foreground">
+      <Link to="/book-experience" className="group block px-4 py-12 md:px-8 md:py-16">
+        <div className="flex items-center gap-[3.5vw]">
+          <h2 className="font-condensed text-[11vw] leading-[0.9] uppercase">Book</h2>
+          <h2 className="font-condensed text-[11vw] leading-[0.9] uppercase">Experience</h2>
+          <span className="ml-auto flex h-[7vw] max-h-32 min-h-16 w-[7vw] max-w-32 min-w-16 shrink-0 items-center justify-center bg-ink text-[2.6vw] text-foreground transition-transform duration-500 group-hover:scale-105">
             ↗
           </span>
         </div>
-        <p className="mt-8 max-w-md text-stone">
-          Consultations are free. Tell us the idea and we will match you with the right hand.
-        </p>
       </Link>
     </section>
   );

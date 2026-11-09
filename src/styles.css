@@ -35,6 +35,9 @@
   --color-ink: var(--ink);
   --color-stone: var(--stone);
   --color-hairline: var(--hairline);
+  --font-condensed: "Anton", "Arial Narrow", Impact, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-blackletter: "UnifrakturMaguntia", "Old English Text MT", serif;
   --font-sans: "Satoshi", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-display: "Satoshi", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

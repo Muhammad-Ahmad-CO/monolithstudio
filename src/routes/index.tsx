@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { StatueHero } from "@/components/StatueHero";
 import { ArtistsSection } from "@/components/ArtistsSection";
 import { Journal } from "@/components/Journal";
+import { Statement } from "@/components/Statement";
 import { Testimonials } from "@/components/Testimonials";
 import { InstagramStrip } from "@/components/InstagramStrip";
 import { LatestNews, BookCta } from "@/components/NewsAndCta";
@@ -65,6 +66,7 @@ function Index() {
       <main>
         <StatueHero />
         <ArtistsSection />
+        <Statement />
         <Journal />
         <Testimonials />
         <InstagramStrip />
