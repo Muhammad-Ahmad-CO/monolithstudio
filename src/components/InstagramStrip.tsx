@@ -1,4 +1,4 @@
-import { articles, instagramShots, studio } from "@/data/site";
+import { instagramShots, studio } from "@/data/site";
 import { Reveal } from "@/components/Reveal";
 
 const shapes = [
@@ -13,7 +13,7 @@ const shapes = [
 ];
 
 export function InstagramStrip() {
-  const tiles = [...instagramShots, ...articles.map((a) => a.image).filter(Boolean)].slice(0, 8);
+  const tiles = instagramShots.slice(0, 8);
   return (
     <section className="bg-background px-4 pb-24 md:px-8 md:pb-32">
       <Reveal>

@@ -48,12 +48,12 @@ export function LatestNews() {
 
 export function BookCta() {
   return (
-    <section className="border-t border-paper-foreground/10 bg-paper text-paper-foreground">
+    <section className="overflow-hidden border-t border-paper-foreground/10 bg-paper text-paper-foreground">
       <Link to="/book-experience" className="group block px-4 py-12 md:px-8 md:py-16">
-        <div className="flex items-center gap-[3.5vw]">
-          <h2 className="font-condensed text-[11vw] leading-[0.9] uppercase">Book</h2>
-          <h2 className="font-condensed text-[11vw] leading-[0.9] uppercase">Experience</h2>
-          <span className="ml-auto flex h-[7vw] max-h-32 min-h-16 w-[7vw] max-w-32 min-w-16 shrink-0 items-center justify-center bg-ink text-[2.6vw] text-foreground transition-transform duration-500 group-hover:scale-105">
+        <div className="flex items-center gap-[2.5vw] md:gap-[3.5vw]">
+          <h2 className="font-condensed text-[9.5vw] leading-[0.9] uppercase md:text-[11vw]">Book</h2>
+          <h2 className="font-condensed text-[9.5vw] leading-[0.9] uppercase md:text-[11vw]">Experience</h2>
+          <span className="ml-auto flex h-[7vw] max-h-32 min-h-[52px] w-[7vw] max-w-32 min-w-[52px] shrink-0 md:min-h-16 md:min-w-16 items-center justify-center bg-ink text-[2.6vw] text-foreground transition-transform duration-500 group-hover:scale-105">
             ↗
           </span>
         </div>

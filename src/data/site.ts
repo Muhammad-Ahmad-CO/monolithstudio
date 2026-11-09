@@ -106,12 +106,12 @@ export const news = [
 ];
 
 export const instagramShots = [
-  photos["monolith-studio-s-instagram-page"],
-  photos["monolith-studio-s-instagram-page-2"],
   photos["ig-3"],
-  photos["tattoo-ideas-for-women-50-designs-amp-in"],
   photos["chrome-tattoos-the-hyper-polished-future"],
   photos["tattoo-sleeve-ideas-full-half-amp-arm-sl"],
+  photos["tattoo-ideas-for-women-50-designs-amp-in"],
+  photos["monolith-studio-s-instagram-page"],
+  photos["monolith-studio-s-instagram-page-2"],
 ].filter(Boolean) as string[];
 
 export const tattooStyles = [
